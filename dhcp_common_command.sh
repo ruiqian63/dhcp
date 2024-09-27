@@ -14,3 +14,5 @@ cd /neuro/labs/grantlab/users/rui.qian/Package_1232682/genomics_sample03/Users/n
 #add toolbox to matlab
 scp -r /Users/Rui/downloads/spm12 rui.qian@navarro:/neuro/arch/x86_64-Linux/packages/matlab/R2018a/toolbox
 
+brith age (week)
+Min: 23.0 Max: 42.71428571
