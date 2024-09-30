@@ -2,7 +2,7 @@ ssh -XY rui.qian@navarro
 matlab -v 2018a
 
 #neonatal raw data path
-cd /neuro/labs/grantlab/users/rui.qian/Package_1232682/fmriresults01/rel3_derivatives
+cd /neuro/labs/grantlab/users/rui.qian/Package_1232682/fmriresults01/rel3_derivatives/rel3_derivatives
 #subject list
 /neuro/labs/grantlab/users/rui.qian/Package_1232682/fmriresults01/rel3_derivatives/rel3_dhcp_fmri_pipeline/subject_neonatal_func.txt
 
