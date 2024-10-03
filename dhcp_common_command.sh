@@ -13,7 +13,7 @@ cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/Package_
 /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/Package_1232682/genomics_sample03/Users/nickharper/cdb/dhcp_plink_files/subjects.txt
 
 #add toolbox to matlab
-scp -r /Users/Rui/downloads/spm12 rui.qian@navarro:/neuro/arch/x86_64-Linux/packages/matlab/R2018a/toolbox
+scp -r /Users/Rui/downloads/spm12 rui.qian@navarro:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/toolbox
 
 brith age (week)
 Min: 23.0 Max: 42.71428571
