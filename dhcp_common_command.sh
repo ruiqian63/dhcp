@@ -1,5 +1,6 @@
 ssh -XY rui.qian@navarro
 matlab -v 2018a
+e3-ondemand.tch.harvard.edu
 
 #neonatal raw data path
 cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/Package_1232682/fmriresults01/rel3_derivatives/rel3_dhcp_fmri_pipeline
