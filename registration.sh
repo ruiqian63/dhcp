@@ -11,7 +11,7 @@ avg_t2_template="/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp
 while read subject_id; do
     registration_folder="${template_base_path}/sub-${subject_id}"
     mkdir -p "$registration_folder"
-    
+   
     # 找到BOLD信号文件
     bold_file=$(find "${bold_base_path}/sub-${subject_id}" -type f -name "*task-rest_desc-preproc_bold.nii.gz")
     if [ -z "$bold_file" ]; then
@@ -25,7 +25,7 @@ while read subject_id; do
         echo "T2 file not found for subject ${subject_id}"
         continue
     fi
-    
+   
     # 复制文件到注册文件夹
     cp "$bold_file" "$registration_folder/"
     cp "$t2_file" "$registration_folder/"
@@ -59,20 +59,17 @@ while read subject_id; do
         continue
     fi
 
-    # 输出配准矩阵
-    t2_template_mat="${registration_folder}/sub-${subject_id}_t2_template.mat"
-
-    # 非线性配准
-    fnirt --in="$t2_file" --ref="$avg_t2_template" --iout="${registration_folder}/sub-${subject_id}_t2_template.nii.gz" --cout="$t2_template_mat"
+    # 非线性配准，并生成非线性变形场
+    fnirt --in="$t2_file" --ref="$avg_t2_template" --iout="${registration_folder}/sub-${subject_id}_t2_template.nii.gz" --fout="${registration_folder}/sub-${subject_id}_warpfield.nii.gz"
 done < "$subject_file"
 
-# 应用T2到模板的变化矩阵到BOLD_T2文件
+# 应用T2到模板的变形场到BOLD_T2文件
 while read subject_id; do
     registration_folder="${template_base_path}/sub-${subject_id}"
     bold_t2_file="${registration_folder}/sub-${subject_id}_bold_t2.nii.gz"
-    t2_template_mat="${registration_folder}/sub-${subject_id}_t2_template.mat"
+    warpfield="${registration_folder}/sub-${subject_id}_warpfield.nii.gz"
 
-    if [ -z "$bold_t2_file" ] || [ -z "$t2_template_mat" ]; then
+    if [ -z "$bold_t2_file" ] || [ -z "$warpfield" ]; then
         echo "Missing files for subject ${subject_id}, skipping warp application"
         continue
     fi
@@ -80,8 +77,8 @@ while read subject_id; do
     # 输出最终配准的BOLD文件
     bold_template_output="${registration_folder}/sub-${subject_id}_bold_template.nii.gz"
 
-    # 应用变化矩阵
-    applywarp --ref="$avg_t2_template" --in="$bold_t2_file" --warp="$t2_template_mat" --out="$bold_template_output"
+    # 应用非线性变形场
+    applywarp --ref="$avg_t2_template" --in="$bold_t2_file" --warp="$warpfield" --out="$bold_template_output"
 done < "$subject_file"
 
 echo "All processing completed!"
