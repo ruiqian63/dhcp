@@ -24,7 +24,7 @@ for i = 1:length(participantDirs)
     datfile = fullfile(targetroot, 'braindat.dat');
     std_d = std(dat, 0, 2);
     dat = dat';
-    r = 0.3; % Adjust as necessary
+    r = 0.6; % Adjust as necessary
     dim = 3;
     
     % Write data to file
