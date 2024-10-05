@@ -15,8 +15,10 @@ cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/Package_
 
 #add toolbox to matlab
 scp -r /Users/Rui/downloads/spm12 rui.qian@navarro:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/toolbox
+scp -r /Users/Rui/downloads/dpabi-master ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/toolbox
 
 brith age (week)
 Min: 23.0 Max: 42.71428571
 
 scp ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/Package_1232682/fmriresults01/rel3_derivatives/rel3_dhcp_fmri_pipeline/sub-CC00056XX07/ses-10700/func/sub-CC00056XX07_ses-10700_task-rest_desc-preproc_bold.nii.gz  /Users/Rui/documents/dhcp
+scp /Users/Rui/documents/dhcp/Reslice2_template_t2.nii ch258782@e3-login.tch.harvard.edu:/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/Package_1232682/fmriresults01/rel3_derivatives/rel3_dhcp_fmri_pipeline/sub-CC00056XX07/ses-10700/func
