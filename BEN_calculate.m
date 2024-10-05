@@ -1,13 +1,14 @@
 %%BENcalculator
-%for a = 0:2
+for a = 1:650
 %fileroot=sprintf('E:/wmm_BEN/batch1/RAW_bpf/w%d/post',a);
 %targetroot=sprintf('E:/wmm_BEN/batch1/BENoutput_bpf/w%d/post',a);
-fileroot='E:/wmm_BEN/batch1/RAW_bpf/1m';
-targetroot='E:/wmm_BEN/batch1/BENoutput_bpf/1m';
-files=dir(fileroot);
+fileroot='/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/BOLD_for_calculate_trait';
+targetroot='/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/fMRItrait/BEN';
+%files=dir(fileroot);
 
-for i=3:length(files)
-    filepath=strcat(fileroot,filesep,files(i).name,filesep,'Filtered_4DVolume.nii');
+%for i=3:length(files)
+    %filepath=strcat(fileroot,filesep,files(i).name,filesep,'Filtered_4DVolume.nii');
+    filepath=sprintf('/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/BOLD_for_calculate_trait/sub_%d',a);
     [v,h]=y_Read(filepath);
     dat=v;
     tlen=size(dat,4);
@@ -49,11 +50,11 @@ for i=3:length(files)
     mask1=niftiread(maskroot);
     mask=im2double(mask1);
     benmap=benmap.*mask;
-    targetpath=strcat(targetroot,filesep,'BEN_',files(i).name);
+    %targetpath=strcat(targetroot,filesep,'BEN_',files(i).name);
     y_Write(benmap,h,targetpath);
     delete(datfile);
-end
 %end
+end
 
 
         
