@@ -37,7 +37,7 @@ for i = 1:length(participantDirs)
     
     % Execute SampEn for BEN calculation
     if isunix
-        str = ['C:\Program Files\MATLAB\R2022b\toolbox\BENtbx\SampEn -d ' num2str(dim) ' -r ' num2str(r) ' -i ' datfile  ' -o SEN.dat '];
+        str = ['\neuro\labs\grantlab\research\enrique.mondragon\morton_lab\dhcp\toolbox\BENtbx\SampEn -d ' num2str(dim) ' -r ' num2str(r) ' -i ' datfile  ' -o SEN.dat '];
         eval(str);
     else
         str = ['sampen.exe -d ' num2str(dim) ' -r ' num2str(r) ' -i ' datfile  ' -o SEN.dat '];
