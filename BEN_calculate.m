@@ -62,7 +62,7 @@ for i = 1:length(participantDirs)
     benmap = benmap .* mask; % Apply mask to the BEN map
     
     % Write the BEN map to the target directory
-    targetPath = fullfile(targetroot, ['BEN_' subID '.nii']);
+    targetPath = fullfile(targetroot, ['BEN_sub' num2str(i) '.nii']);
     y_Write(benmap, h, targetPath);
     
     % Clean up
