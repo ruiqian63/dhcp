@@ -6,7 +6,8 @@ e3-ondemand.tch.harvard.edu
 cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/Package_1232682/fmriresults01/rel3_derivatives/rel3_dhcp_fmri_pipeline
 #subject list
 /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/Package_1232682/fmriresults01/rel3_derivatives/rel3_dhcp_fmri_pipeline/subject_neonatal_func.txt
-
+#ben file path
+cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/fMRItrait/BEN
 
 #genome(plink) raw data path
 cd /neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/Package_1232682/genomics_sample03/Users/nickharper/cdb/dhcp_plink_files
