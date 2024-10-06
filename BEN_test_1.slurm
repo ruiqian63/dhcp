@@ -7,7 +7,6 @@
 #SBATCH --cpus-per-task=16              # 为每个任务分配的 CPU 核心数
 #SBATCH --time=24:00:00                 # 作业运行的最大时间 (hh:mm:ss)
 #SBATCH --mem=64GB                      # 申请的内存
-#SBATCH --partition=standard            # 分区名称（根据你的系统配置选择）
 
 # 加载 MATLAB 模块 (如果需要)
 module load matlab
