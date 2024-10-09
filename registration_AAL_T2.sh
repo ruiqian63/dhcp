@@ -29,7 +29,7 @@ for subject_folder in "${subject_folders[@]}"; do
 
     # Linear registration using FLIRT
     echo "Processing subject: $subject_id" # Report the current subject being processed
-    flirt -in "$t2_file" -ref "$atlas_path" -out "$output_file" -omat "$subject_folder/${subject_id}_AAL_t2.mat"
+    flirt -in "$atlas_path" -ref "$t2_file" -out "$output_file" -omat "$subject_folder/${subject_id}_AAL_t2.mat"
 
     # Check if the registration command was successful
     if [ $? -ne 0 ]; then
