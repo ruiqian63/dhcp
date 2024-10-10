@@ -1,6 +1,6 @@
 % 加载 NIfTI 文件
-nii = niftiread('C:\Users\qian''rui\Downloads\AAL_UNCneo_in_extdhcp40wk.nii.gz');
-hdr = niftiinfo('C:\Users\qian''rui\Downloads\AAL_UNCneo_in_extdhcp40wk.nii.gz');
+nii = niftiread('sub-CC00056XX07_AAL_t2.nii.gz');
+hdr = niftiinfo('sub-CC00056XX07_AAL_t2.nii.gz');
 
 % 查看原始图像尺寸
 originalSize = size(nii);
