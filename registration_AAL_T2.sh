@@ -1,42 +1,39 @@
 #!/bin/bash
 
-# Set paths
-atlas_path="/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/registration/template/AAL_UNCneo_in_extdhcp40wk.nii"
-registration_folder="/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/registration"
-failed_subjects_file="failed_subjects.txt"
+# 定义目录路径
+TEMPLATE_T2="/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/registration/template/template_t2.nii"
+ATLAS_FILE="/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/registration/template/AAL_UNCneo_in_extdhcp40wk.nii"
+REGISTRATION_DIR="/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/registration"
+ATLAS_OUTPUT_DIR="/neuro/labs/grantlab/research/enrique.mondragon/morton_lab/dhcp/data/atlas"
 
-# Get list of all subject folders (assuming the format is 'sub-<subject_id>')
-subject_folders=("$registration_folder"/sub-*)
-
-# Initialize report for failed subjects
-> "$failed_subjects_file" # Clear the file at the beginning
-
-# Loop through each subject folder
-for subject_folder in "${subject_folders[@]}"; do
-    subject_id=$(basename "$subject_folder") # This will be 'sub-<subject_id>'
-
-    # Check for the T2 file
-    t2_file=$(find "$subject_folder" -name "*_T2w.nii.gz")
-
-    if [ -z "$t2_file" ]; then
-        echo "T2 file missing for subject: $subject_id"
-        echo "$subject_id" >> "$failed_subjects_file" # Record missing T2 file
-        continue # Skip to the next subject
+# 遍历所有 "sub-" 开头的文件夹
+for subject_dir in ${REGISTRATION_DIR}/sub-*; do
+    subject_id=$(basename "$subject_dir")
+    
+    # 查找该被试的 T2w 文件
+    T2W_FILE=$(find "$subject_dir" -name "*_T2w.nii.gz" | head -n 1)
+    
+    if [[ -z "$T2W_FILE" ]]; then
+        echo "No T2w file found for $subject_id"
+        continue
     fi
-
-    # Output file name
-    output_file="$subject_folder/${subject_id}_AAL_t2.nii"
-
-    # Linear registration using FLIRT
-    echo "Processing subject: $subject_id" # Report the current subject being processed
-    flirt -in "$atlas_path" -ref "$t2_file" -out "$output_file" -omat "$subject_folder/${subject_id}_AAL_t2.mat"
-
-    # Check if the registration command was successful
-    if [ $? -ne 0 ]; then
-        echo "Failed to register atlas for subject: $subject_id"
-        echo "$subject_id" >> "$failed_subjects_file" # Record failed registration
-    fi
+    
+    echo "Processing $subject_id"
+    
+    # 1. 线性配准 template_t2.nii 到 T2w 图像，生成配准矩阵和配准后的图像
+    flirt -in "$TEMPLATE_T2" -ref "$T2W_FILE" \
+          -out "${subject_dir}/${subject_id}_template_t2.nii.gz" \
+          -omat "${subject_dir}/${subject_id}_template_t2.mat"
+    
+    # 2. 应用配准矩阵到 AAL atlas，生成应用后的 atlas 图像
+    flirt -in "$ATLAS_FILE" -ref "$T2W_FILE" \
+          -applyxfm -init "${subject_dir}/${subject_id}_template_t2.mat" \
+          -out "${subject_dir}/${subject_id}_AAL_t2_applied.nii.gz"
+    
+    # 3. 将结果拷贝到 atlas 输出目录
+    cp "${subject_dir}/${subject_id}_AAL_t2_applied.nii.gz" "$ATLAS_OUTPUT_DIR/"
+    
+    echo "$subject_id completed and copied to atlas directory."
 done
 
-# Output total processed subjects
-echo "Total subjects processed: ${#subject_folders[@]}"
+echo "All subjects processed."
